@@ -11,6 +11,6 @@
     flex-wrap: wrap;
 }
 
-.square:hover {
-    background-color: blue;
+.highlight {
+    background-color: black;
 }

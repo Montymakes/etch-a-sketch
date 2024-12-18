@@ -1,5 +1,9 @@
 const container = document.querySelector(".container");
 
+const highlightSquare = (e) => {
+    e.target.classList.add("highlight");
+}
+
 const createGrid = (size) => {
     let newSquares = '';
     const widthAndHeight = 100 / size;
@@ -11,7 +15,9 @@ const createGrid = (size) => {
     gridSquares.forEach(square => {
         square.style.height = `${widthAndHeight}vh`;
         square.style.width = `${widthAndHeight}vw`;
+        square.addEventListener("mouseover", highlightSquare);
     })
 }
+
 
 createGrid(16);
