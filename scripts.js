@@ -10,11 +10,21 @@ const generateRandomRGB = () => {
 }
 const setRandomHighlight = (e) => {
     const color = generateRandomRGB();
-    e.target.style.backgroundColor =  color;
+    e.target.style.backgroundColor = color;
 };
 
 const highlightSquare = (e) => {
     e.target.classList.add("highlight");
+}
+
+const setOpacity = (e) => {
+    const styles = getComputedStyle(e.target);
+    let opacity = parseFloat(styles.opacity);
+    if (opacity < 1) {
+        opacity += 0.10;
+        e.target.style.opacity = opacity.toString();
+    }
+    
 }
 
 const eraseGrid = () => {
@@ -24,11 +34,11 @@ const eraseGrid = () => {
         || size < 1
         || size > 100
     ) size = parseInt(prompt('Please enter a whole number between 1 and 100:'));
-    let color = parseInt(prompt('Chose your line color. Enter 0 for black or 1 for random colors.'));
+    let color = parseInt(prompt('Chose your line color. Enter 0 for black, 1 for random colors, or 2 for shading.'));
     while( color == NaN
         || color < 0
-        || color > 1
-    ) color = prompt('Please enter a valid selection. Pick either 0 (black) or 1 (random colors):');
+        || color > 2
+    ) color = prompt('Please enter a valid selection. Pick either 0 (black), 1 (random colors), or 2 (shading):');
     createGrid(size, color);
 }
 
@@ -45,6 +55,9 @@ const createGrid = (size,color = 0) => {
         square.style.width = `${widthAndHeight}%`;
         if (color === 0) square.addEventListener("mouseover", highlightSquare);
         if (color === 1) square.addEventListener("mouseover", setRandomHighlight);
+        if (color === 2) { square.classList.add("shading");
+            square.addEventListener("mouseover", setOpacity);
+        }
     })
 }
 
